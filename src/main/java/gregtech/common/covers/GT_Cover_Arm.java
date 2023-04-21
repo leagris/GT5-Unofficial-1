@@ -11,7 +11,6 @@ import com.gtnewhorizons.modularui.api.math.MathExpression;
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import com.gtnewhorizons.modularui.common.widget.TextWidget;
 import com.gtnewhorizons.modularui.common.widget.textfield.BaseTextFieldWidget;
-import com.gtnewhorizons.modularui.common.widget.textfield.TextFieldWidget;
 
 import gregtech.api.gui.modularui.GT_CoverUIBuildContext;
 import gregtech.api.gui.modularui.GT_UITextures;
@@ -352,7 +351,8 @@ public class GT_Cover_Arm extends GT_CoverBehavior {
                             .setValidator(val -> {
                                 final int valSlot = getIntFromText(val);
                                 if (valSlot > -1) {
-                                    return TextFieldWidget.format.format(Math.min(valSlot, maxSlot));
+                                    return widget.getDecimalFormatter()
+                                        .format(Math.min(valSlot, maxSlot));
                                 } else {
                                     return ANY_TEXT;
                                 }
@@ -384,7 +384,8 @@ public class GT_Cover_Arm extends GT_CoverBehavior {
                                 adjacentMaxSlot = -1;
                             }
                             if (valSlot > -1) {
-                                return TextFieldWidget.format.format(Math.min(valSlot, adjacentMaxSlot));
+                                return widget.getDecimalFormatter()
+                                    .format(Math.min(valSlot, adjacentMaxSlot));
                             } else {
                                 return ANY_TEXT;
                             }
@@ -393,7 +394,8 @@ public class GT_Cover_Arm extends GT_CoverBehavior {
                                 final int val = getIntFromText(text);
                                 int step = (GuiScreen.isShiftKeyDown() ? 50 : GuiScreen.isCtrlKeyDown() ? 5 : 1)
                                     * direction;
-                                return TextFieldWidget.format.format(val + step);
+                                return widget.getDecimalFormatter()
+                                    .format(val + step);
                             })
                             .setPattern(BaseTextFieldWidget.NATURAL_NUMS)
                             .setPos(spaceX * 0, spaceY * 2 + 2)
